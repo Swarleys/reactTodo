@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './Todo.css'
+import "./Todo.css";
 
 export default class Todo extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ export default class Todo extends Component {
       [evt.target.name]: evt.target.value
     });
   }
-  handleToogle(evt){
+  handleToogle(evt) {
     this.props.toogleTodo(this.props.id);
   }
 
@@ -40,8 +40,8 @@ export default class Todo extends Component {
 
     if (this.state.isEditting) {
       result = (
-        <div>
-          <form onSubmit={this.handleUpdate}>
+        <div className="Todo">
+          <form onSubmit={this.handleUpdate} className="Todo-edit-form" >
             <input
               type="text"
               value={this.state.task}
@@ -54,10 +54,23 @@ export default class Todo extends Component {
       );
     } else {
       result = (
-        <div>
-          <button onClick={this.toogleForm}>Edit</button>
-          <button onClick={this.handleRemove}>X</button>
-          <li className={this.props.completed ? 'completed' : ''} onClick={this.handleToogle} >{this.props.task}</li>
+        <div className="Todo">
+          <li
+            className={
+              this.props.completed ? "Todo-task completed" : "Todo-task"
+            }
+            onClick={this.handleToogle}
+          >
+            {this.props.task}
+          </li>
+          <div className="Todo-buttons">
+            <button onClick={this.toogleForm}>
+              <i className="fas fa-pen" />
+            </button>
+            <button onClick={this.handleRemove}>
+              <i className="fas fa-trash" />
+            </button>
+          </div>
         </div>
       );
     }
