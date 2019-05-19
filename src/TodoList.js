@@ -7,25 +7,36 @@ export default class TodoList extends Component {
     super(props);
 
     this.state = {
-      todos: [{ task: "Walk the fish" }, { task: "Groom Chickens" }]
+      todos: []
     };
-    this.create = this.create.bind(this)
+    this.create = this.create.bind(this);
+    this.remove = this.remove.bind(this);
   }
-  create(newTodo){
+  create(newTodo) {
     this.setState({
       todos: [...this.state.todos, newTodo]
-    })
+    });
+  }
+  remove(id) {
+    this.setState({
+      todos: this.state.todos.filter(todo => todo.id !== id)
+    });
   }
 
   render() {
-    const todos = this.state.todos.map(todo => <Todo task={todo.task}/>)
+    const todos = this.state.todos.map(todo => (
+      <Todo
+        task={todo.task}
+        key={todo.id}
+        id={todo.id}
+        removeTodo={this.remove}
+      />
+    ));
     return (
       <div>
         <h1>Todo List!</h1>
         <NewTodoForm createTodo={this.create} />
-        <ul>
-          {todos}
-        </ul>
+        <ul>{todos}</ul>
       </div>
     );
   }
